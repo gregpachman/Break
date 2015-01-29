@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		CE705E221A7A81520041BA15 /* GameData.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE705E211A7A81520041BA15 /* GameData.swift */; };
 		CEB753401A792E5800EE4036 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEB7533F1A792E5800EE4036 /* AppDelegate.swift */; };
 		CEB753421A792E5800EE4036 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEB753411A792E5800EE4036 /* ViewController.swift */; };
 		CEB753451A792E5800EE4036 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CEB753431A792E5800EE4036 /* Main.storyboard */; };
@@ -27,6 +28,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		CE705E211A7A81520041BA15 /* GameData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameData.swift; sourceTree = "<group>"; };
 		CEB7533A1A792E5800EE4036 /* Break.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Break.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CEB7533E1A792E5800EE4036 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		CEB7533F1A792E5800EE4036 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -82,6 +84,7 @@
 				CEB7533F1A792E5800EE4036 /* AppDelegate.swift */,
 				CEB753411A792E5800EE4036 /* ViewController.swift */,
 				CEB7535F1A7970AC00EE4036 /* LivesView.swift */,
+				CE705E211A7A81520041BA15 /* GameData.swift */,
 				CEB753431A792E5800EE4036 /* Main.storyboard */,
 				CEB753461A792E5800EE4036 /* Images.xcassets */,
 				CEB753481A792E5800EE4036 /* LaunchScreen.xib */,
@@ -216,6 +219,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				CEB753421A792E5800EE4036 /* ViewController.swift in Sources */,
+				CE705E221A7A81520041BA15 /* GameData.swift in Sources */,
 				CEB753401A792E5800EE4036 /* AppDelegate.swift in Sources */,
 				CEB753601A7970AC00EE4036 /* LivesView.swift in Sources */,
 			);
