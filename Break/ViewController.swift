@@ -37,7 +37,20 @@ class ViewController: UIViewController,UICollisionBehaviorDelegate {
         }
     
     }
-
+    
+    
+    func getRandomColor() -> UIColor{
+        
+        var randomRed:CGFloat = CGFloat(drand48())
+        
+        var randomGreen:CGFloat = CGFloat(drand48())
+        
+        var randomBlue:CGFloat = CGFloat(drand48())
+        
+        return UIColor(red: randomRed, green: randomGreen, blue: randomBlue, alpha: 1.0)
+        
+    }
+    
     var animator: UIDynamicAnimator?
     
     var gravityBehavior = UIGravityBehavior()
@@ -45,6 +58,8 @@ class ViewController: UIViewController,UICollisionBehaviorDelegate {
     var collisionBehavior = UICollisionBehavior()
     
     var ballBehavior = UIDynamicItemBehavior()
+    
+    var powerBallBehavior = UIDynamicItemBehavior()
     
     var brickBehavior = UIDynamicItemBehavior()
     
@@ -61,6 +76,7 @@ class ViewController: UIViewController,UICollisionBehaviorDelegate {
         animator?.addBehavior(ballBehavior)
         animator?.addBehavior(brickBehavior)
         animator?.addBehavior(paddleBehavior)
+        animator?.addBehavior(powerBallBehavior)
         
 //        collisionBehavior.translatesReferenceBoundsIntoBoundary = true
         collisionBehavior.collisionDelegate = self
@@ -73,6 +89,14 @@ class ViewController: UIViewController,UICollisionBehaviorDelegate {
         ballBehavior.elasticity = 1
         ballBehavior.resistance = 0
         ballBehavior.allowsRotation = false
+        
+        powerballBehavior.friction = 0
+        powerballBehavior.elasticity = 1
+        powerballBehavior.resistance = 0
+        powerballBehavior.allowsRotation = false
+        
+        
+        
         
         brickBehavior.density = 1000000
         paddleBehavior.density = 1000000
@@ -92,6 +116,9 @@ class ViewController: UIViewController,UICollisionBehaviorDelegate {
         createPaddle()
         createBall()
         createBricks()
+    
+        
+        
 
     }
     
@@ -131,6 +158,7 @@ class ViewController: UIViewController,UICollisionBehaviorDelegate {
         
         ballBehavior.items
         brickBehavior.items
+        powerBallBehavior.items
         
         for brick in brickBehavior.items as [UIView] {
             
@@ -139,12 +167,19 @@ class ViewController: UIViewController,UICollisionBehaviorDelegate {
                 brick.removeFromSuperview()
                 brickBehavior.removeItem(brick)
                 collisionBehavior.removeItem(brick)
-                score += 100
+                
+                
+                
+                
+                var brickValue = GameData.mainData().allLevelDetails[GameData.mainData().currentLevel]["point"] as Int
+                
+                
+                score += brickValue
                 
                 GameData.mainData().adjustValue(1, forkey: "bricksBusted")
                 
                 var pointsLabel = UILabel(frame: brick.frame)
-                pointsLabel.text = "+100"
+                pointsLabel.text = "+\(brickValue)"
                 pointsLabel.textAlignment = .Center
                 
                 gameView.addSubview(pointsLabel)
@@ -165,7 +200,13 @@ class ViewController: UIViewController,UICollisionBehaviorDelegate {
                 
                 endGame(false)
             }
+        
+            
+    
+        
+        
         }
+        
         
         
     }
@@ -199,6 +240,36 @@ class ViewController: UIViewController,UICollisionBehaviorDelegate {
         }
         
         
+        
+        func createPowerball() {
+            
+            var powerBall = UIView(frame: CGRectMake(0, 0, 20, 20))
+            powerBall.center.x = brick.center.x
+            powerBall.center.y = brick.center.y-40
+            powerBall.backgroundColor = getRandomColor()
+            powerBall.layer.cornerRadius = 10
+            
+            gameView.addSubview(powerBall)
+            gravityBehavior.addItem(powerBall)
+            collisionBehavior.addItem(powerBall)
+            ballBehavior.addItem(powerBall)
+            
+            var pushBehavior = UIPushBehavior(items: [powerBall], mode: .Instantaneous)
+            
+            pushBehavior.pushDirection = CGVectorMake(0.06, -0.06)
+            
+            animator?.addBehavior(pushBehavior)
+ 
+        
+        
+        
+        }
+        
+        
+        
+        
+        
+        
     }
     
     
@@ -224,6 +295,8 @@ class ViewController: UIViewController,UICollisionBehaviorDelegate {
         pushBehavior.pushDirection = CGVectorMake(0.06, -0.06)
         
         animator?.addBehavior(pushBehavior)
+    
+        
 
         
         
@@ -246,7 +319,8 @@ class ViewController: UIViewController,UICollisionBehaviorDelegate {
                 
                 var brick = UIView(frame: CGRectMake(x, y, width, height))
                 
-                brick.backgroundColor = UIColor.blackColor()
+                var brickColor = GameData.mainData().allLevelDetails[GameData.mainData().currentLevel]["color"] as UIColor
+                brick.backgroundColor = brickColor
                 brick.layer.cornerRadius = 3
                 
                 gameView.addSubview(brick)
